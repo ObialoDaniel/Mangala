@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Mangala.API/Mangala.API.csproj" />
+  <Project Path="Mangala.Core/Mangala.Core.csproj" />
+  <Project Path="Mangala.Data/Mangala.Data.csproj" />
+</Solution>

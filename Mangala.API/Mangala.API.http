@@ -1,0 +1,6 @@
+@Mangala.API_HostAddress = http://localhost:5277
+
+GET {{Mangala.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
