@@ -9,6 +9,9 @@ namespace Mangala.Core.Interfaces
     {
         Order Add(Order order);
         Order? GetById(int id);
-        List<Order> GetByCustomer(int customerId); 
+        List<Order> GetByCustomer(int customerId);
+        void Update(Order order);
+
+
     }
 }

@@ -69,6 +69,7 @@ var bachsSettings = builder.Configuration.GetSection("Bachs").Get<BachsSettings>
     ?? throw new InvalidOperationException("Bachs settings are missing");
 builder.Services.AddSingleton(bachsSettings);
 builder.Services.AddHttpClient<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 var app = builder.Build();
 

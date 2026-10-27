@@ -33,6 +33,12 @@ namespace Mangala.Data.Repositories
                 .Where(o => o.CustomerId == customerId)
                 .ToList();
         }
+
+        public void Update(Order order)
+        {
+            context.Orders.Update(order);
+            context.SaveChanges();
+        }
     }
 }
 
