@@ -45,18 +45,25 @@ namespace Mangala.API.Controllers
         [HttpGet("google-callback")]
         public async Task<IActionResult> GoogleCallback()
         {
-            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            var result = await HttpContext.AuthenticateAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme);
+
             if (!result.Succeeded)
-                return Unauthorized();
+                return Redirect("http://localhost:5173/login?error=google");
 
             var email = result.Principal!.FindFirst(ClaimTypes.Email)?.Value;
-            var fullName = result.Principal!.FindFirst(ClaimTypes.Name)?.Value ?? email!;
+            var fullName = result.Principal!.FindFirst(ClaimTypes.Name)?.Value ?? email;
 
-            if (email is null)
-                return BadRequest("Google did not provide an email address.");
+            if (string.IsNullOrEmpty(email))
+                return Redirect("http://localhost:5173/login?error=google");
 
-            var response = authService.LoginWithGoogle(email, fullName);
-            return Ok(response);
+            var response = authService.LoginWithGoogle(email, fullName!);
+
+            if (!response.IsSuccess)
+                return Redirect("http://localhost:5173/login?error=google");
+
+            return Redirect(
+                $"http://localhost:5173/auth/callback#token={Uri.EscapeDataString(response.Data!.Token)}");
         }
     }
 }

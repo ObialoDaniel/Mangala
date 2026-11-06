@@ -48,5 +48,29 @@ namespace Mangala.API.Controllers
             }
             return Ok(response);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMyOrders()
+        {
+            var customerId = User.GetUserId();
+            var response = await orderService.GetCustomerOrders(customerId);
+
+            if (!response.IsSuccess)
+                return BadRequest(response);
+
+            return Ok(response);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetOrderById(int id)
+        {
+            var customerId = User.GetUserId();
+            var response = await orderService.GetOrderById(id, customerId);
+
+            if (!response.IsSuccess)
+                return NotFound(response);
+
+            return Ok(response);
+        }
     }
 }

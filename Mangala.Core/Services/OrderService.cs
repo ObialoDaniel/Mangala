@@ -91,5 +91,65 @@ namespace Mangala.Core.Services
             return Task.FromResult(ApiResponse<OrderDto>.Success(dto, "Order created successfully."));
         
         }
+
+        public Task<ApiResponse<List<OrderDto>>> GetCustomerOrders(int customerId)
+        {
+            var orders = orderRepository.GetByCustomer(customerId);
+
+            var orderDtos = orders
+                .OrderByDescending(o => o.DateCreated)
+                .Select(MapToDto)
+                .ToList();
+            return Task.FromResult(
+                ApiResponse<List<OrderDto>>.Success(
+                    orderDtos,
+                    "Orders retrieved successfully."
+                )
+            );
+        }
+
+        public Task<ApiResponse<OrderDto>> GetOrderById(int orderId, int customerId)
+        {
+            var order = orderRepository.GetById(orderId);
+
+            if (order == null || order.CustomerId != customerId)
+            {
+                return Task.FromResult(
+                    ApiResponse<OrderDto>.Failure("Order not found.")
+                );
+            }
+
+            var orderDto = MapToDto(order);
+
+            return Task.FromResult(
+                ApiResponse<OrderDto>.Success(
+                    orderDto,
+                    "Order retrieved successfully."
+                )
+            );
+        }
+
+        private static OrderDto MapToDto(Order order)
+        {
+            return new OrderDto
+            {
+                Id = order.Id,
+                CustomerId = order.CustomerId,
+                Status = order.Status,
+                PaymentStatus = order.PaymentStatus,
+                TotalAmount = order.TotalAmount,
+                DateCreated = order.DateCreated,
+
+                Items = order.Items.Select(item => new OrderItemDto
+                {
+                    MenuItemId = item.MenuItemId,
+                    MenuItemName = item.MenuItem?.Name ?? "Unavailable item",
+                    Quantity = item.Quantity,
+                    UnitPrice = item.Price,
+                    Subtotal = item.Price * item.Quantity
+                }).ToList()
+            };
+        }
+
     }
 }

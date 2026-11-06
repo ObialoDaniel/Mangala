@@ -11,5 +11,9 @@ namespace Mangala.Core.Interfaces
         Task<ApiResponse<OrderDto>> CreateOrder(
         CreateOrderRequest request,
         int customerId);
+
+        Task<ApiResponse<List<OrderDto>>> GetCustomerOrders(int customerId);
+
+        Task<ApiResponse<OrderDto>> GetOrderById(int orderId, int customerId);
     }
 }
