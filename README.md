@@ -122,7 +122,6 @@ The app runs at http://localhost:5173 and expects the API to be running too.
 ## Roadmap
 
 - [ ] Add unit and integration tests
-- [ ] Add a frontend client
 - [ ] Deploy to a hosting provider
 
 ## Author
