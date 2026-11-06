@@ -1,0 +1,50 @@
+:root {
+  --green-900: #0c3d27;
+  --green-700: #17694a;
+  --green-600: #1a7a53;
+  --green-100: #e6f2ec;
+  --orange: #f0a030;
+  --cream: #fbfaf6;
+  --white: #ffffff;
+  --text: #14281f;
+  --muted: #5d6b64;
+  --border: #e8e6df;
+  --radius: 16px;
+  --shadow: 0 4px 18px rgba(12, 61, 39, 0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--cream);
+  color: var(--text);
+}
+
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; border: none; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green-700);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+}
+.btn-primary { background: var(--green-700); color: var(--white); }
+.btn-primary:hover { background: var(--green-900); }
+.btn-light { background: var(--cream); color: var(--green-900); }
+
+

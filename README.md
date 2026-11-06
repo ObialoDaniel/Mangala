@@ -1,17 +1,20 @@
 # Mangala
 
-A restaurant ordering system backend built with ASP.NET Core. Customers can sign in, browse the menu, place orders and pay online. Staff and admins can manage menu items, categories, users and roles.
+A full-stack restaurant ordering system. The ASP.NET Core backend handles authentication, menu, orders and payments, and the Vue frontend lets customers browse the menu, build a cart, pay and track their orders. Staff and admins can manage menu items, categories, users and roles.
 
 ## Features
 
-- **Authentication**: email/password registration and login with JWT tokens, plus Google sign-in
+- **Authentication pages**: register, log in, and Google sign-in, with the JWT kept on the client
 - **Role-based access**: users have roles (for example Customer) that control what they can do
-- **Menu management**: create, update and organise menu items by category
-- **Orders**: place orders made of multiple items and track their status
+- **Menu browsing**: view the daily menu by category using reusable menu item cards
+- **My Orders**: view past orders with their order and payment status
+- **Cart**: add and remove items, adjust quantities, and see the running total
+- **Checkout**: place an order and be redirected to the Bachs payment page
 - **Payments**: checkout flow using the Bachs payment gateway (sandbox)
 - **Emails**: welcome emails sent through Brevo
 - **Rate limiting**: protects the API from too many requests
 - **Swagger**: interactive API documentation
+- **Responsive layout**: shared navigation bar and footer across all pages
 
 ## Tech stack
 
@@ -20,8 +23,12 @@ A restaurant ordering system backend built with ASP.NET Core. Customers can sign
 - PostgreSQL
 - JWT authentication and Google OAuth
 - Brevo (email) and Bachs (payments)
+- Vue 3 with Vite (frontend)
+- Vue Router for page navigation
+- A state store for the cart and logged-in user (Pinia)
+- An `api` layer that talks to the Mangala API
 
-## Project structure
+## Project structure            
 
 ```
 Mangala/
@@ -29,6 +36,7 @@ Mangala/
   Mangala.Core/    Models, DTOs, interfaces, services and settings (business logic)
   Mangala.Data/    AppDbContext, repositories and EF Core migrations
   Mangala.API.slnx Solution file
+  Mangala.Frontend/   Vue app: components, views, router, stores and API calls
 ```
 
 The solution follows a layered design: the API layer talks to services in `Core`, and services use repositories in `Data` to reach the database.
@@ -83,6 +91,16 @@ dotnet run
 ```
 
 Then open the Swagger page (the URL is printed in the terminal, usually `https://localhost:<port>/swagger`) to try the endpoints.
+
+### 5. Run the frontend
+
+```bash
+cd Mangala.Frontend
+npm install
+npm run dev
+```
+
+The app runs at http://localhost:5173 and expects the API to be running too.
 
 ## API overview
 
